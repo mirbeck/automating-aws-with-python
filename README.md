@@ -5,3 +5,10 @@
 ## 01-webotron
 
 ## Webotron a scrpit that will sync a local directory to an s3 bucket, and optionaly config route 53 and CloudFront as well.
+
+### Features
+
+Webotron currently has the following features:
+
+- List bucket
+- List contents of a bucket
