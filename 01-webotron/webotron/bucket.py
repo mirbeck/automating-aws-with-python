@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 """Classes for S3 Buckets."""
 
 from pathlib import Path
@@ -9,7 +10,7 @@ import boto3
 from botocore.exceptions import ClientError
 
 from hashlib import md5
-import util
+from webotron import util
 
 
 class BucketManager:
@@ -28,13 +29,14 @@ class BucketManager:
         self.manifest = {}
 
     def get_bucket(self, bucket_name):
-        """Get bucket by name."""
+        """Get a bucket by name."""
         return self.s3.Bucket(bucket_name)
 
     def get_region_name(self, bucket):
         """Get the bucket's region name."""
         client = self.s3.meta.client
         bucket_location = client.get_bucket_location(Bucket=bucket.name)
+
         return bucket_location["LocationConstraint"] or 'us-east-1'
 
     def get_bucket_url(self, bucket):
@@ -67,6 +69,7 @@ class BucketManager:
                 s3_bucket = self.s3.Bucket(bucket_name)
             else:
                 raise error
+
         return s3_bucket
 
     def set_policy(self, bucket):
@@ -86,6 +89,7 @@ class BucketManager:
         }
         """ % bucket.name
         policy = policy.strip()
+
         pol = bucket.Policy()
         pol.put(Policy=policy)
 
